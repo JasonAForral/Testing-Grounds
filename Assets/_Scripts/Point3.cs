@@ -12,22 +12,34 @@ public struct Point3 {
     {
         get
         {
-            if (0 == index)
-                return x;
-            if (1 == index)
-                return y;
-            if (2 == index)
-                return y;
-            return 0;
+            switch (index)
+            {
+                case 0:
+                    return x;
+                case 1:
+                    return y;
+                case 2:
+                    return z;
+                default:
+                    return 0;
+            }
+
         }
-                set
+        set
         {
-            if (0 == index)
-                x = value;
-            else if (1 == index)
-                y = value;
-            else if (2 == index)
-                z = value;
+
+            switch (index)
+            {
+                case 0:
+                    x = value;
+                    break;
+                case 1:
+                    y = value;
+                    break;
+                case 2:
+                    z = value;
+                    break;
+            }
         }
     }
 
@@ -51,16 +63,16 @@ public struct Point3 {
     public static Point3 back = new Point3(0, 0, -1);
     public static Point3 forward = new Point3(0, 0, 1);
 
-    public static int sqrMagnitude (Point3 a)
+    public static int SqrMagnitude (Point3 a)
     {
         return (a.x * a.x) + (a.y * a.y) + (a.z * a.z);
     }
 
-    public int SqrMagnitude
+    public int sqrMagnitude
     {
         get
         {
-            return sqrMagnitude(this);
+            return SqrMagnitude(this);
         }
     }
 

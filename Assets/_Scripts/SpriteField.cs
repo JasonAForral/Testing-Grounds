@@ -17,9 +17,10 @@ public class SpriteField : MonoBehaviour {
         Vector3 perlinOrigin = new Vector3(Random.Range(0f, 1000f), 0f, Random.Range(0f, 1000f));
         
         float perlinScale = 6f;
-        
 
-        Vector3 spriteFieldOffset = new Vector3(spriteFieldDimensions.x, 0f, spriteFieldDimensions.z) * spriteScale * 0.5f;
+
+        Vector3 spriteFieldOffset = new Vector3(spriteFieldDimensions.x - 1, 0f, spriteFieldDimensions.z - 1) * spriteScale * 0.5f;
+
         Vector3 spriteFieldDimensionsInverse = new Vector3(1f / spriteFieldDimensions.x, 1f , 1f / spriteFieldDimensions.z );
         Debug.Log(spriteFieldDimensionsInverse.x);
 
@@ -32,15 +33,14 @@ public class SpriteField : MonoBehaviour {
                 float perlinShade = Mathf.PerlinNoise(perlinInput.x, perlinInput.z) ;
                 int perlinOutput = Mathf.Clamp(Mathf.FloorToInt(perlinShade * 4f), 0, Tiles.Length - 1);
 
-                Vector3 position = new Vector3(x, perlinShade, z) * spriteScale - spriteFieldOffset;
+                Vector3 position = new Vector3(x, 0f, z) * spriteScale - spriteFieldOffset;
 
                 Debug.Log(perlinOutput);
                 GameObject instance = Instantiate(Tiles[perlinOutput], position, Quaternion.Euler(Vector3.right * 90f)) as GameObject;
                 instance.transform.SetParent(boardHolder);
+
             }
         }
-
-        
     }
 
 }

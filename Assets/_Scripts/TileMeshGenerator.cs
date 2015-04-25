@@ -4,7 +4,7 @@ using System.Collections;
 using Random = UnityEngine.Random; 
 
 
-public class MeshGenerator {
+public class TileMeshGenerator {
 
      [Serializable]
     private struct Coord3
@@ -146,6 +146,7 @@ public class MeshGenerator {
                 triangles[faceIndex + 3] = vertexIndex + 1;
                 triangles[faceIndex + 4] = vertexIndex;
                 triangles[faceIndex + 5] = vertexIndex + 1 + vertex.count.x;
+
 
                 //Debug.Log("face " + faceIndex + " => vertecies"
                 //    + ", " + vertexIndex

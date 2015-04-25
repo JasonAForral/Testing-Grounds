@@ -24,11 +24,12 @@ public class Obdob : MonoBehaviour {
         //meshFilter.sharedMesh = mesh2;
 
         loopThrough2(meshFilter.sharedMesh.vertices);
-
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 	
 	}
 
