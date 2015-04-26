@@ -4,7 +4,8 @@ using System.Collections;
 //using Random = UnityEngine.Random; 
 
 [System.Serializable]
-public struct Point3 {
+public struct Point3
+{
 
     public int x, y, z;
 
@@ -23,11 +24,9 @@ public struct Point3 {
                 default:
                     return 0;
             }
-
         }
         set
         {
-
             switch (index)
             {
                 case 0:

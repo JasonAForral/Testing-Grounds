@@ -19,29 +19,26 @@ public class MeshGenerator {
             }
         }
 
-        private Point3 _count;
+        private Point3 _coord;
 
-        public Point3 count
+        public Point3 coord
         {
             
             get
             {
-                return _count;
+                return _coord;
             }
             set
             {
                 _inverse = Inverse(value);
-
-                _count = value;
-                
+                _coord = value;
             }
         }
 
         public Coord3 ( Point3 point)
         {
-            _count = point;
+            _coord = point;
             _inverse = Inverse(point);
-            Debug.Log(inverse);
             
         }
 
@@ -60,13 +57,12 @@ public class MeshGenerator {
             {
                 output.z = 1f / (float)value.z;
             }
-            Debug.Log("this Happened:");
             return output;
         }
 
         public static Coord3 operator + (Coord3 a, int b)
         {
-            return new Coord3(a.count + b);
+            return new Coord3(a.coord + b);
         }
     }
 
@@ -103,22 +99,20 @@ public class MeshGenerator {
         Coord3 face = new Coord3(faceCount);
         Coord3 vertex = face + 1;
 
-        Debug.Log(face.inverse.x);
-       
-        int numVerts = vertex.count.x * vertex.count.z;
+        int numVerts = vertex.coord.x * vertex.coord.z;
 
         Vector3[] vertices = new Vector3[numVerts];
         Vector3[] normals = new Vector3[numVerts];
-        int[] triangles = new int[face.count.x * face.count.z * 6];
+        int[] triangles = new int[face.coord.x * face.coord.z * 6];
         Vector2[] uv = new Vector2[numVerts];
         //Debug.Log("triangles.length = "+triangles.Length);
 
-        for (int z = 0; z < vertex.count.z; z++)
+        for (int z = 0; z < vertex.coord.z; z++)
         {
             int vertexIndex;
-            for (int x = 0; x < vertex.count.x; x++)
+            for (int x = 0; x < vertex.coord.x; x++)
             {
-                vertexIndex = (vertex.count.x * z) + x;
+                vertexIndex = (vertex.coord.x * z) + x;
 
                 vertices[vertexIndex] = new Vector3(x, 0f, z) * faceSize - planeOffset;
                 normals[vertexIndex] = Vector3.up;
@@ -127,31 +121,31 @@ public class MeshGenerator {
             }
         }
 
-        for (int z = 0; z < face.count.z; z++)
+        for (int z = 0; z < face.coord.z; z++)
         {
             int faceIndex;
             int vertexIndex;
 
-            for (int x = 0; x < face.count.x; x++)
+            for (int x = 0; x < face.coord.x; x++)
             {
-                faceIndex = (face.count.x * z + x) * 6;
-                vertexIndex = vertex.count.x * z + x;
+                faceIndex = (face.coord.x * z + x) * 6;
+                vertexIndex = vertex.coord.x * z + x;
 
                 //Debug.Log("(" + x + ", " + z + ")");
 
         
                 triangles[faceIndex    ] = vertexIndex;
-                triangles[faceIndex + 1] = vertexIndex + vertex.count.x;
-                triangles[faceIndex + 2] = vertexIndex + 1 + vertex.count.x;
+                triangles[faceIndex + 1] = vertexIndex + vertex.coord.x;
+                triangles[faceIndex + 2] = vertexIndex + 1 + vertex.coord.x;
                 triangles[faceIndex + 3] = vertexIndex + 1;
                 triangles[faceIndex + 4] = vertexIndex;
-                triangles[faceIndex + 5] = vertexIndex + 1 + vertex.count.x;
+                triangles[faceIndex + 5] = vertexIndex + 1 + vertex.coord.x;
 
                 //Debug.Log("face " + faceIndex + " => vertecies"
                 //    + ", " + vertexIndex
                 //    + ", " + (vertexIndex + 1)
-                //    + ", " + (vertexIndex + vertex.count.z)
-                //    + ", " + (vertexIndex + 1 + vertex.count.z));
+                //    + ", " + (vertexIndex + vertex.coord.z)
+                //    + ", " + (vertexIndex + 1 + vertex.coord.z));
             }
         }
 

@@ -12,6 +12,7 @@ public class FrameCounter : MonoBehaviour {
     void Start ()
     {
         fpsText = GetComponent<Text>();
+
     }
 
     void LateUpdate ()
