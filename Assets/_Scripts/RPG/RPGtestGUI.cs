@@ -3,6 +3,8 @@ using System.Collections;
 
 
 public class RPGtestGUI : MonoBehaviour {
+    [SerializeField]
+    private int mo;
 
     public Specialty class1;
     private Specialty class2;

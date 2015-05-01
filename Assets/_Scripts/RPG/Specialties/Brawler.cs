@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class Brawler : Specialty
 {
+    [SerializeField]
+    int johnny;
+
     public Brawler ()
     {
         characterSpecialty = "Brawler";
