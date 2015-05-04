@@ -40,7 +40,10 @@ public class CameraController : MonoBehaviour
         {
             transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * rotateSpeed);
             cameraTilt.Rotate(Vector3.left * Input.GetAxisRaw("Mouse Y") * rotateSpeed);
-            cameraTilt.localEulerAngles = Vector3.right * Mathf.Clamp(cameraTilt.localEulerAngles.x, 10f, 80f);
+
+            float verticalRotation = cameraTilt.localEulerAngles.x;
+            verticalRotation -= (verticalRotation > 180 ? 360f : 0f);
+            cameraTilt.localEulerAngles = Vector3.right * Mathf.Clamp(verticalRotation, -80f, 80f);
 
         }
 

@@ -79,7 +79,7 @@ public struct Point3
 
     public static Point3 operator + (Point3 a, Point3 b)
     {
-        return new Point3(a.x + b.x, a.y + b.y, a.y + b.y);
+        return new Point3(a.x + b.x, a.y + b.y, a.z + b.z);
     }
 
     // Point3 - Point3
