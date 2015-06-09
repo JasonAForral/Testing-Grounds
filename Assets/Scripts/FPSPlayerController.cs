@@ -120,7 +120,7 @@ public class FPSPlayerController : MonoBehaviour {
             //held.velocity = Vector3.zero;
             held.MovePosition(cameraZoom.position + cameraZoom.forward * 1.5f);
             //held.MoveRotation(cameraPan.rotation);
-            //held.position = (cameraZoom.position + cameraZoom.forward * 1.5f);
+            //held.position = (cameraDolly.position + cameraDolly.forward * 1.5f);
             //held.rotation = (transform.rotation);
         }
     }
