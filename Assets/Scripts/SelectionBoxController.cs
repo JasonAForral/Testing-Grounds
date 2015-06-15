@@ -9,43 +9,71 @@ public class SelectionBoxController : MonoBehaviour
 
     public bool isLooping = true;
 
-    public 
-
-    GameObject selectionBox;
+    //public GameObject selectionBox;
+    //Collider selectionBoxCollider;
+    //Material selectionMaterial;
+    public SelectionBox selectionScript;
     Transform selectionBoxTransform;
-    Collider selectionBoxCollider;
 
-    SelectionBox selectionScript;
+    Vector3 pointA;
+    Vector3 pointB;
 
-    
+    public LayerMask groundMask;
 
-    void Awake ()
+    bool isDragging;
+
+
+
+    void Awake()
     {
-        selectionBox = new GameObject("Selection Box");
-        selectionBoxTransform = selectionBox.transform;
-        selectionBoxCollider = selectionBox.AddComponent<BoxCollider>();
-        selectionBoxCollider.isTrigger = true;
+        //selectionBox = new GameObject("Selection Box");
+        selectionBoxTransform = selectionScript.transform;
+        //selectionBoxCollider = selectionBox.GetComponent<BoxCollider>();
+        //selectionBoxCollider.isTrigger = true;
 
-        selectionScript = selectionBox.AddComponent<SelectionBox>();
+        //selectionScript = selectionScript.GetComponent<SelectionBox>();
 
-        selectionBox.AddComponent<Rigidbody>().isKinematic = true;
+        //selectionBox.AddComponent<Rigidbody>().isKinematic = true;
         StartCoroutine(Looper());
     }
 
-    IEnumerator Looper ()
+    IEnumerator Looper()
     {
         while (isLooping) {
-            if (Input.GetButtonDown("Fire1")){
+            if (Input.GetButtonDown("Fire1")) {
+                isDragging = true;
                 selectionScript.ActivateSelectionProcess(true);
-            }
-            if (Input.GetButton("Fire1")){
+                selectionBoxTransform.gameObject.SetActive(true);
+
                 Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100f, selectionMask)) {
-                    selectionBoxTransform.position = hit.point+Vector3.up;
-                    
+                    pointA = hit.point;
+                    selectionScript.selectedItems.Clear();
+
                 }
             }
+            if (Input.GetButton("Fire1")) {
+                if (isDragging) {
+                    Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100f, selectionMask)) {
+                        pointB = hit.point;
+                        selectionBoxTransform.position = Vector3.Lerp(pointA, pointB, 0.5f) + Vector3.up * 0.75f;
+                        selectionBoxTransform.localScale = Vector3.Max(pointA, pointB) - Vector3.Min(pointA, pointB) + Vector3.up * 1.5f;
+                    }
+                }
+            }
+
+
+            if (Input.GetButtonUp("Fire1")) {
+                isDragging = false;
+                selectionScript.ActivateSelectionProcess(false);
+                selectionBoxTransform.gameObject.SetActive(false);
+
+                selectionBoxTransform.position = selectionBoxTransform.localScale = Vector3.zero;
+            }
+
             yield return null;
         }
     }

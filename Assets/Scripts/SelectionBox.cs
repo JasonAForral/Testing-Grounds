@@ -19,7 +19,7 @@ public class SelectionBox : MonoBehaviour
     {
 
         if (isSelecting) {
-            Debug.Log(other.name + " selected");
+            //Debug.Log(other.name + " selected");
             selectedItems.Add(other.gameObject);
         }
 
@@ -28,7 +28,7 @@ public class SelectionBox : MonoBehaviour
     void OnTriggerExit (Collider other)
     {
         if (isSelecting) {
-            Debug.Log(other.name + " unselected");
+            //Debug.Log(other.name + " unselected");
             selectedItems.Remove(other.gameObject);
         }
     }
