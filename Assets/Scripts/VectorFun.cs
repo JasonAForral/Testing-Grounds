@@ -13,5 +13,7 @@ public class VectorFun : MonoBehaviour
             Debug.DrawRay(Vector3.zero, rightAngle);
             transform.Translate(rightAngle * Time.deltaTime);
         }
+
+        
     }
 }
